@@ -19,3 +19,17 @@ export const createContact = async (payload) => {
     throw createError(500, 'Creating a contact is failed');
   }
 };
+
+export const updateContact = async (contactId, payload) => {
+  const result = await ContactsCollection.findOneAndUpdate(
+    { _id: contactId },
+    { $set: payload },
+    { new: true },
+  );
+
+  if (!result) {
+    return null;
+  }
+
+  return result;
+};
