@@ -8,12 +8,19 @@ import {
 } from '../services/contacts.js';
 
 export const getContactsController = async (req, res, next) => {
-  const contacts = await getAllContacts();
-  res.status(200).json({
-    status: 200,
-    message: 'Successfully found contacts!',
-    data: contacts,
-  });
+  console.log('GET /contacts request received');
+  try {
+    const contacts = await getAllContacts();
+    console.log('Contacts fetched:', contacts);
+    res.status(200).json({
+      status: 200,
+      message: 'Successfully found contacts!',
+      data: contacts,
+    });
+  } catch (error) {
+    console.error('Error fetching contacts:', error);
+    next(error);
+  }
 };
 
 export const getContactByIdController = async (req, res, next) => {
@@ -43,9 +50,9 @@ export const patchContactsController = async (req, res, next) => {
   const { contactId } = req.params;
   const result = await updateContact(contactId, req.body);
   if (!result) {
-    next(createError(404, 'Contact not found'));
+    return next(createError(404, 'Contact not found'));
   }
-  res.status(200).json({
+  return res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact!',
     data: result,
@@ -56,7 +63,7 @@ export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await deleteContact(contactId);
   if (!contact) {
-    next(createError(404, 'Contact not found'));
+    return next(createError(404, 'Contact not found'));
   }
-  res.status(204).send();
+  return res.status(204).send();
 };
