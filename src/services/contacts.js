@@ -1,10 +1,18 @@
 import createError from 'http-errors';
 import { ContactsCollection } from '../db/models/contacts.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllContacts = async () => {
-  const contacts = await ContactsCollection.find();
-  console.log('Contacts found:', contacts);
-  return contacts;
+export const getAllContacts = async ({ page, perPage }) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
+  const contactsQuery = ContactsCollection.find();
+  const contactsCount = await ContactsCollection.countDocuments();
+  const contacts = await contactsQuery.skip(skip).limit(limit).exec();
+  const paginationData = calculatePaginationData(contactsCount, page, perPage);
+  return {
+    data: contacts,
+    ...paginationData,
+  };
 };
 
 export const getContactById = async (contactId) => {
