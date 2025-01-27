@@ -8,17 +8,31 @@ export const getAllContacts = async ({
   perPage,
   sortOrder = SORT_ORDER.DESC,
   sortBy = 'name',
+  filter = {},
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-  const contactsQuery = ContactsCollection.find();
-  const contactsCount = await ContactsCollection.countDocuments();
+
+  const mongoFilter = {};
+  if (filter.contactType) {
+    mongoFilter.contactType = filter.contactType;
+  }
+  if (typeof filter.isFavourite === 'boolean') {
+    mongoFilter.isFavourite = filter.isFavourite;
+  }
+
+  const contactsQuery = ContactsCollection.find(mongoFilter);
+
+  const contactsCount = await ContactsCollection.countDocuments(mongoFilter);
+
   const contacts = await contactsQuery
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortOrder })
     .exec();
+
   const paginationData = calculatePaginationData(contactsCount, page, perPage);
+
   return {
     data: contacts,
     ...paginationData,
