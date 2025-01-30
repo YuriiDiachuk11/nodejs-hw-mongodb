@@ -2,6 +2,7 @@ import createError from 'http-errors';
 import { THIRTY_DAYS } from '../constants/index.js';
 import {
   userLogin,
+  userLogout,
   userRefreshSession,
   userRegister,
 } from '../services/auth.js';
@@ -56,4 +57,12 @@ export const userRefreshSessionController = async (req, res, next) => {
       accessToken: newSession.accessToken,
     },
   });
+};
+export const userLogoutController = async (req, res, next) => {
+  if (req.cookies.sessionId) {
+    await userLogout(req.cookies.sessionId);
+  }
+  res.clearCookie('sessionId');
+  res.clearCookie('refreshToken');
+  res.status(204).send();
 };

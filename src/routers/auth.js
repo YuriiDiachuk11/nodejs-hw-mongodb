@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
   userLoginController,
+  userLogoutController,
   userRefreshSessionController,
   userRegisterController,
 } from '../controllers/auth.js';
@@ -22,4 +23,6 @@ authRouter.post(
 );
 
 authRouter.post('/refresh', ctrlWrapper(userRefreshSessionController));
+
+authRouter.post('/logout', ctrlWrapper(userLogoutController));
 export default authRouter;
