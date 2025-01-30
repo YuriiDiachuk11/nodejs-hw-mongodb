@@ -14,10 +14,11 @@ import {
   updateContactsSchema,
 } from '../validation/contacts.js';
 import { isValidId } from '../middlewares/isValidId.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const contactsRouter = Router();
-
-contactsRouter.get('/contacts', ctrlWrapper(getContactsController));
+contactsRouter.use(authenticate);
+contactsRouter.get('/', ctrlWrapper(getContactsController));
 
 contactsRouter.get(
   '/contacts/:contactId',
@@ -43,4 +44,5 @@ contactsRouter.delete(
   isValidId,
   ctrlWrapper(deleteContactController),
 );
+
 export default contactsRouter;
