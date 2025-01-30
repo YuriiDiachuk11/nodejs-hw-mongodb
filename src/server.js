@@ -6,6 +6,7 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import contactsRouter from './routers/contacts.js';
 import authRouter from './routers/auth.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 const PORT = Number(process.env.PORT);
@@ -21,6 +22,7 @@ export const setupServer = () => {
     }),
   );
   app.use(cors());
+  app.use(cookieParser());
   app.use(express.json());
   app.use(authRouter);
   app.use(contactsRouter);
