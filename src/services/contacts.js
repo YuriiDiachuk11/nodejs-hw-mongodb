@@ -13,7 +13,7 @@ export const getAllContacts = async ({
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-
+  console.log('Authenticated user:', userId);
   const mongoFilter = { userId };
   if (filter.contactType) {
     mongoFilter.contactType = filter.contactType;

@@ -16,6 +16,7 @@ export const getContactsController = async (req, res, next) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortOrder, sortBy } = parseSortParams(req.query);
     const filter = parseFilterParams(req.query);
+    console.log('Authenticated user:', req.user);
     const contacts = await getAllContacts({
       page,
       perPage,
