@@ -3,6 +3,7 @@ import { sessionCollection } from '../db/models/session.js';
 import { usersCollection } from '../db/models/users.js';
 
 export const authenticate = async (req, res, next) => {
+  console.log('Request path:', req.path);
   const authHeader = req.get('Authorization');
   if (!authHeader) {
     next(createError(401, 'Please provide Authorization header'));

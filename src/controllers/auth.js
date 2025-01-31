@@ -14,7 +14,6 @@ export const userRegisterController = async (req, res, next) => {
     message: 'Successfully registered a user!',
     data: user,
   });
-  next();
 };
 
 export const userLoginController = async (req, res, next) => {

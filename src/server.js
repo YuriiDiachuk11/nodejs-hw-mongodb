@@ -24,8 +24,8 @@ export const setupServer = () => {
   app.use(cors());
   app.use(cookieParser());
   app.use(express.json());
-  app.use(authRouter);
-  app.use(contactsRouter);
+  app.use('/auth', authRouter);
+  app.use('/contacts', contactsRouter);
   app.use('*', notFoundHandler);
   app.use(errorHandler);
 
