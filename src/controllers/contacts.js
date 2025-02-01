@@ -23,6 +23,7 @@ export const getContactsController = async (req, res, next) => {
       sortBy,
       sortOrder,
       filter,
+      userId: req.user._id,
     });
     console.log('Contacts fetched:', contacts);
     res.status(200).json({

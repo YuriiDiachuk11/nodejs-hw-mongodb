@@ -15,15 +15,15 @@ export const getAllContacts = async ({
   const skip = (page - 1) * perPage;
   console.log('Authenticated user:', userId);
   const mongoFilter = { userId };
-  if (filter.contactType) {
-    mongoFilter.contactType = filter.contactType;
-  }
-  if (typeof filter.isFavourite === 'boolean') {
-    mongoFilter.isFavourite = filter.isFavourite;
+
+  if (filter.type) {
+    contactsQuery.where('contactType').equals(filter.type);
   }
 
+  if (filter.isFavourite !== undefined) {
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
+  }
   const contactsQuery = ContactsCollection.find(mongoFilter);
-
   const contactsCount = await ContactsCollection.countDocuments(mongoFilter);
 
   const contacts = await contactsQuery
