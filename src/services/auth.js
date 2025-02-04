@@ -121,3 +121,26 @@ export const requestResetToken = async (email) => {
     html: html,
   });
 };
+
+export const resetPassword = async (payload) => {
+  let entries;
+  try {
+    entries = jwt.verify(payload.token, JWT_SECRET);
+  } catch (err) {
+    if (err instanceof Error)
+      throw createError(401, 'Token is expired or invalid.');
+    throw err;
+  }
+  const user = usersCollection.findOne({
+    email: entries.email,
+    _id: entries.sub,
+  });
+  if (!user) {
+    throw createError(404, 'User not found');
+  }
+  const encryptedPassword = await bcrypt.hash(payload.password, 10);
+  await usersCollection.updateOne({
+    _id: user._id,
+    password: encryptedPassword,
+  });
+};
