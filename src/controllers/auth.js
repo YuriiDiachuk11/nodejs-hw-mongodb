@@ -1,6 +1,7 @@
 import createError from 'http-errors';
 import { THIRTY_DAYS } from '../constants/index.js';
 import {
+  requestResetToken,
   userLogin,
   userLogout,
   userRefreshSession,
@@ -64,4 +65,13 @@ export const userLogoutController = async (req, res, next) => {
   res.clearCookie('sessionId');
   res.clearCookie('refreshToken');
   res.status(204).send();
+};
+
+export const requestResetEmailController = async (req, res) => {
+  await requestResetToken(req.body.email);
+  res.json({
+    status: 200,
+    message: 'Reset password email has been successfully sent.',
+    data: {},
+  });
 };
