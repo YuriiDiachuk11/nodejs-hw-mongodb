@@ -90,14 +90,10 @@ export const userLogout = async (sessionId) => {
 };
 
 export const requestResetToken = async (email) => {
-  console.log('🔹 Запит на відправку email для скидання пароля:', email);
   const user = await usersCollection.findOne({ email });
   if (!user) {
     throw createError(404, 'User not found');
   }
-  console.log('✅ Користувач знайдений:', user.email);
-  console.log('🔹 JWT_SECRET при генерації токена:', JWT_SECRET);
-  console.log('🔹 Серверний час:', new Date().toISOString());
   const resetToken = jwt.sign(
     {
       sub: user._id,
@@ -119,25 +115,18 @@ export const requestResetToken = async (email) => {
     name: user.name,
     link: `${APP_DOMAIN}/reset-password?token=${resetToken}`,
   });
-  console.log('🔹 Відправляємо email на адресу:', email);
   await sendEmail({
     from: SMTP.SMTP_FROM,
     to: email,
     subject: 'Reset your password',
     html: html,
   });
-  console.log('✅ Email успішно відправлено');
 };
 
 export const resetPassword = async (payload) => {
-  console.log('🔹 Отримано запит на зміну пароля');
-  console.log('🔹 Отриманий токен:', payload.token);
-  console.log('🔹 JWT_SECRET при перевірці:', JWT_SECRET);
-  console.log('🔹 Серверний час:', new Date().toISOString());
   let entries;
   try {
     entries = jwt.verify(payload.token, JWT_SECRET);
-    console.log('✅ Токен успішно верифіковано:', entries);
   } catch (err) {
     if (err instanceof Error)
       throw createError(401, 'Token is expired or invalid.');
@@ -150,12 +139,9 @@ export const resetPassword = async (payload) => {
   if (!user) {
     throw createError(404, 'User not found');
   }
-  console.log('✅ Користувач знайдений:', user.email);
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
-  console.log('🔹 Оновлюємо пароль для користувача:', user.email);
   await usersCollection.updateOne({
     _id: user._id,
     password: encryptedPassword,
   });
-  console.log('✅ Пароль успішно змінено');
 };
