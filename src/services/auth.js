@@ -38,7 +38,7 @@ export const userLogin = async (payload) => {
   if (!isEqual) {
     throw createError(401, 'Unauthorized');
   }
-  await sessionCollection.deleteOne({ userId: user._id });
+  await sessionCollection.deleteMany({ userId: user._id });
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
   const session = await sessionCollection.create({
@@ -132,7 +132,7 @@ export const resetPassword = async (payload) => {
       throw createError(401, 'Token is expired or invalid.');
     throw err;
   }
-  const user = usersCollection.findOne({
+  const user = await usersCollection.findOne({
     email: entries.email,
     _id: entries.sub,
   });
@@ -140,8 +140,9 @@ export const resetPassword = async (payload) => {
     throw createError(404, 'User not found');
   }
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
-  await usersCollection.updateOne({
-    _id: user._id,
-    password: encryptedPassword,
-  });
+  await usersCollection.updateOne(
+    { _id: user._id },
+    { $set: { password: encryptedPassword } },
+  );
+  await sessionCollection.deleteMany({ userId: user._id });
 };
