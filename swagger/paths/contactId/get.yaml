@@ -1,10 +1,12 @@
 tags:
   - Contacts
+
 summary: Get contact by ID
 operationId: getContact
 description: Retrieve a specific contact by its ID.
 security:
   - bearerAuth: []
+
 parameters:
   - in: path
     name: contactId
@@ -12,6 +14,7 @@ parameters:
     schema:
       type: string
     example: '679ca01a791a37e1a64e5d7b'
+
 responses:
   '200':
     description: Successfully found the contact
@@ -25,3 +28,9 @@ responses:
       application/json:
         schema:
           $ref: '../../components/responses/404.yaml'
+  '500':
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/responses/500.yaml'
