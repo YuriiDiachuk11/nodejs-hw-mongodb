@@ -5,7 +5,7 @@ required:
 properties:
   status:
     type: integer
-    example: 200
+    example: 401
   message:
     type: string
-    example: 'Contact with id 679ca01a791a37e1a64e5d7b successfully found!'
+    example: 'Unauthorized: Invalid or missing token'

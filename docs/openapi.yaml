@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   version: 1.0.0
   title: Contacts-Manager-App
@@ -15,34 +15,10 @@ servers:
   - url: http://localhost:3000
 paths:
   /contacts/{contactId}:
-    get:
-      tags:
-        - Contacts
-      summary: Get contact by ID
-      operationId: getContact
-      description: Retrieve a specific contact by its ID.
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: path
-          name: contactId
-          required: true
-          schema:
-            type: string
-          example: '679ca01a791a37e1a64e5d7b'
-      responses:
-        '200':
-          description: Successfully found the contact
-          content:
-            application/json:
-              schema:
-                $ref: '../swagger/components/schemas/contact.yaml'
-        '404':
-          description: Contact not found
-          content:
-            application/json:
-              schema:
-                $ref: '../swagger/components/responses/404.yaml'
+    $ref: ../swagger/paths/contactId/get.yaml
+  /contacts:
+    $ref: ../swagger/paths/contacts/get.yaml
+
 components:
   securitySchemes:
     bearerAuth:
