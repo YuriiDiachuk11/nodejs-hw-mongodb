@@ -13,9 +13,15 @@ tags:
     description: Auth operations.
 servers:
   - url: http://localhost:3000
+  - url: https://contacts-manager-app-email-and-images.onrender.com
 paths:
   /contacts/{contactId}:
-    $ref: ../swagger/paths/contactId/get.yaml
+    get:
+      $ref: ../swagger/paths/contactId/get.yaml
+    patch:
+      $ref: ../swagger/paths/contactId/patch.yaml
+    delete:
+      $ref: ../swagger/paths/contactId/delete.yaml
   /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml
