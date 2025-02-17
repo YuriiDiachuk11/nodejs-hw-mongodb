@@ -20,7 +20,7 @@ properties:
     type: string
     example: +380975554431
   email:
-    description: "Contacts's email"
+    description: "Contact's email"
     type: string
     example: ivanpele@gmail.com
   isFavourite:

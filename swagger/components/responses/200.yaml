@@ -1,4 +1,4 @@
-description: Contact not found
+description: Successfully found the contact
 content:
   application/json:
     schema:
@@ -9,7 +9,7 @@ content:
       properties:
         status:
           type: integer
-          example: 404
+          example: 200
         message:
           type: string
-          example: 'Contact not found'
+          example: 'Contact with id 679ca01a791a37e1a64e5d7b successfully found!'
