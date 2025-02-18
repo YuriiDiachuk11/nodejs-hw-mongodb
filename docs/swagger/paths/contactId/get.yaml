@@ -21,16 +21,16 @@ responses:
     content:
       application/json:
         schema:
-          $ref: '../../components/responses/200.yaml'
+          $ref: ../../components/responses/200.yaml
   '404':
     description: Contact not found
     content:
       application/json:
         schema:
-          $ref: '../../components/responses/404.yaml'
+          $ref: ../../components/responses/404.yaml
   '500':
     description: Internal server error
     content:
       application/json:
         schema:
-          $ref: '../../components/responses/500.yaml'
+          $ref: ../../components/responses/500.yaml
