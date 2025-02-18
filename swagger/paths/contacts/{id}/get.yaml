@@ -7,7 +7,7 @@ security:
   - bearerAuth: []
 parameters:
   - in: path
-    name: contactId
+    name: id
     required: true
     schema:
       type: string
@@ -36,3 +36,9 @@ responses:
 
   '404':
     $ref: ../../../components/responses/404.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

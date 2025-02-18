@@ -21,7 +21,7 @@ paths:
       $ref: '../swagger/paths/contacts/get.yaml'
     post:
       $ref: '../swagger/paths/contacts/post.yaml'
-  /contacts/{contactId}:
+  /contacts/{id}:
     get:
       $ref: '../swagger/paths/contacts/{id}/get.yaml'
     patch:
@@ -34,15 +34,3 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-  responses:
-    400:
-      $ref: '../swagger/components/responses/400.yaml'
-    401:
-      $ref: '../swagger/components/responses/401.yaml'
-    404:
-      $ref: '../swagger/components/responses/404.yaml'
-    500:
-      $ref: '../swagger/components/responses/500.yaml'
-  schemas:
-    contact:
-      $ref: '../swagger/components/schemas/contact.yaml'

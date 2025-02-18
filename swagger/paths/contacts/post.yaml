@@ -6,6 +6,7 @@ description: Add a new contact to the list.
 security:
   - bearerAuth: []
 requestBody:
+  required: true
   content:
     multipart/form-data:
       schema:
@@ -14,18 +15,18 @@ requestBody:
           - name
           - phoneNumber
           - contactType
-      properties:
-        name:
-          description: "Contact's name"
-          type: string
-          example: 'Ivan Pele'
-        phoneNumber:
-          description: Contact's phone
-          type: string
-          example: '+380975554532'
-        contactType:
-          description: "Contact's type"
-          enum: ['work', 'personal', 'home']
+        properties:
+          name:
+            description: "Contact's name"
+            type: string
+            example: 'Ivan Pele'
+          phoneNumber:
+            description: Contact's phone
+            type: string
+            example: '+380975554532'
+          contactType:
+            description: "Contact's type"
+            enum: ['work', 'personal', 'home']
 
 responses:
   '201':
@@ -48,5 +49,9 @@ responses:
             data:
               type: object
               $ref: ../../components/schemas/contact.yaml
-    '401':
-      $ref: ../../components/responses/401.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
