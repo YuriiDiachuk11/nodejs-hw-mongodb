@@ -1,17 +1,15 @@
-openapi: 3.0.0
+openapi: 3.1.0
 info:
   version: 1.0.0
-  title: Contacts-Manager-App
+  title: Contacts Manager App
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: This is a documentation of Contacts-Manager-App
+  description: Contacts operations
 
 tags:
   - name: Contacts
-    description: Operations about contacts.
-  - name: Auth
-    description: Auth operations.
+    description: Operations with contacts
 
 servers:
   - url: http://localhost:3000
@@ -20,210 +18,31 @@ servers:
 paths:
   /contacts:
     get:
-      summary: Get all contacts
-      operationId: getAllContacts
-      description: Retrieve a list of all contacts with pagination, sorting, and filtering.
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: query
-          name: page
-          required: false
-          schema:
-            type: integer
-            default: 1
-          description: The page number.
-        - in: query
-          name: perPage
-          required: false
-          schema:
-            type: integer
-            default: 10
-          description: Number of items per page.
-        - in: query
-          name: sortBy
-          required: false
-          schema:
-            type: string
-            default: 'name'
-          description: The field to sort by ('name', 'phoneNumber').
-        - in: query
-          name: sortOrder
-          required: false
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-            default: 'desc'
-          description: The sorting order ('asc' or 'desc').
-        - in: query
-          name: type
-          required: false
-          schema:
-            type: string
-            enum:
-              - work
-              - home
-              - personal
-          description: Filter by contact type.
-        - in: query
-          name: isFavourite
-          required: false
-          schema:
-            type: boolean
-          description: Filter by favorite status.
-      responses:
-        '200':
-          $ref: 'swagger/components/responses/200.yaml'
-        '401':
-          $ref: swagger/components/responses/401.yaml
-        '500':
-          $ref: swagger/components/responses/500.yaml
+      $ref: '../swagger/paths/contacts/get.yaml'
     post:
-      summary: Create a new contact
-      operationId: createContact
-      description: Add a new contact to the list.
-      security:
-        - bearerAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: './swagger/components/schemas/contact.yaml'
-      responses:
-        '201':
-          description: Successfully created a new contact
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                  - message
-                  - data
-                properties:
-                  status:
-                    type: integer
-                    example: 201
-                  message:
-                    type: string
-                    example: 'Contact successfully created!'
-                  data:
-                    $ref: './swagger/components/schemas/contact.yaml'
-        '400':
-          $ref: './swagger/components/responses/400.yaml'
-        '401':
-          $ref: './swagger/components/responses/401.yaml'
-        '500':
-          $ref: './swagger/components/responses/500.yaml'
-
+      $ref: '../swagger/paths/contacts/post.yaml'
   /contacts/{contactId}:
     get:
-      summary: Get contact by ID
-      operationId: getContact
-      description: Retrieve a specific contact by its ID.
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: path
-          name: contactId
-          required: true
-          schema:
-            type: string
-          example: '679ca01a791a37e1a64e5d7b'
-      responses:
-        '200':
-          $ref: './swagger/components/responses/200.yaml'
-        '404':
-          $ref: './swagger/components/responses/404.yaml'
-        '500':
-          $ref: './swagger/components/responses/500.yaml'
+      $ref: '../swagger/paths/contacts/{id}/get.yaml'
     patch:
-      summary: Update a contact
-      operationId: updateContact
-      description: Update an existing contact's details.
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: path
-          name: contactId
-          required: true
-          schema:
-            type: string
-          example: '679ca01a791a37e1a64e5d7b'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: './swagger/components/schemas/contact.yaml'
-      responses:
-        '200':
-          description: Contact successfully updated
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                  - message
-                  - data
-                properties:
-                  status:
-                    type: integer
-                    example: 200
-                  message:
-                    type: string
-                    example: 'Contact successfully updated!'
-                  data:
-                    $ref: './swagger/components/schemas/contact.yaml'
-        '400':
-          $ref: './swagger/components/responses/400.yaml'
-        '404':
-          $ref: './swagger/components/responses/404.yaml'
-        '500':
-          $ref: './swagger/components/responses/500.yaml'
+      $ref: '../swagger/paths/contacts/{id}/patch.yaml'
     delete:
-      summary: Delete a contact by ID
-      operationId: deleteContact
-      description: Remove a specific contact by its ID.
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: path
-          name: contactId
-          required: true
-          schema:
-            type: string
-          example: '679ca01a791a37e1a64e5d7b'
-      responses:
-        '200':
-          description: Successfully deleted the contact
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - status
-                  - message
-                properties:
-                  status:
-                    type: integer
-                    example: 200
-                  message:
-                    type: string
-                    example: 'Contact successfully deleted'
-        '401':
-          $ref: './swagger/components/responses/401.yaml'
-        '404':
-          $ref: './swagger/components/responses/404.yaml'
-        '500':
-          $ref: './swagger/components/responses/500.yaml'
+      $ref: '../swagger/paths/contacts/{id}/delete.yaml'
 
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+  responses:
+    400:
+      $ref: '../swagger/components/responses/400.yaml'
+    401:
+      $ref: '../swagger/components/responses/401.yaml'
+    404:
+      $ref: '../swagger/components/responses/404.yaml'
+    500:
+      $ref: '../swagger/components/responses/500.yaml'
+  schemas:
+    contact:
+      $ref: '../swagger/components/schemas/contact.yaml'

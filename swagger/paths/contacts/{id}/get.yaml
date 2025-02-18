@@ -1,0 +1,38 @@
+tags:
+  - Contact's
+summary: Get contact by id
+operationId: getContact
+description: 'Retrieve contact details by ID.'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: contactId
+    required: true
+    schema:
+      type: string
+    example: '67ca67e7ae7f10c25b566655'
+responses:
+  '200':
+    description: 'Successfully retrieved contact'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found contact!
+            data:
+              type: object
+              $ref: ../../../components/schemas/contact.yaml
+
+  '404':
+    $ref: ../../../components/responses/404.yaml

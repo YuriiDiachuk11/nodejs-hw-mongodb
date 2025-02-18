@@ -1,6 +1,5 @@
 tags:
   - Contacts
-
 summary: Update a contact
 operationId: updateContact
 description: Update an existing contact's details.
@@ -12,14 +11,7 @@ parameters:
     required: true
     schema:
       type: string
-    example: '679ca01a791a37e1a64e5d7b'
-requestBody:
-  required: true
-  content:
-    application/json:
-      schema:
-        $ref: '../../components/schemas/contact.yaml'
-
+    example: '67ca67e7ae7f10c25b566655'
 responses:
   '200':
     description: Contact successfully updated
@@ -39,22 +31,9 @@ responses:
               type: string
               example: 'Contact successfully updated!'
             data:
-              $ref: '../../components/schemas/contact.yaml'
+              type: object
+              $ref: ../../../components/schemas/contact.yaml
   '400':
-    description: Bad request
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/400.yaml'
+    $ref: ../../../components/responses/400.yaml
   '404':
-    description: Contact not found
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/404.yaml'
-  '500':
-    description: Internal server error
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/responses/500.yaml'
+    $ref: ../../../components/responses/404.yaml
