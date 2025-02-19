@@ -24,6 +24,10 @@ requestBody:
             description: Contact's phone
             type: string
             example: '+380975554532'
+          email:
+            description: Contact email address
+            type: string
+            example: ivanpele@gmail.com
           contactType:
             description: "Contact's type"
             enum: ['work', 'personal', 'home']
