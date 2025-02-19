@@ -30,7 +30,7 @@ requestBody:
             type: string
             example: ivanpele@gmail.com
           contactType:
-            description: "Contact's type"
+            description: 'Contact type'
             enum: ['work', 'personal', 'home']
 
 responses:

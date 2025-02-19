@@ -276,7 +276,7 @@
     "/contacts/{id}": {
       "get": {
         "tags": [
-          "Contact's"
+          "Contacts"
         ],
         "summary": "Get contact by id",
         "operationId": "getContact",
