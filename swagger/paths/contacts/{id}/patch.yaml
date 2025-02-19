@@ -30,7 +30,10 @@ requestBody:
             example: ivanpele@gmail.com
           contactType:
             type: string
-            example: business
+            example: home
+          isFavourite:
+            type: boolean
+            example: false
         required: []
 
 responses:

@@ -199,6 +199,7 @@
                 "required": [
                   "name",
                   "phoneNumber",
+                  "email",
                   "contactType"
                 ],
                 "properties": {
@@ -364,6 +365,7 @@
           }
         ],
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
@@ -380,8 +382,13 @@
                   "email": {
                     "type": "string",
                     "example": "ivanpele@gmail.com"
+                  },
+                  "contactType": {
+                    "type": "string",
+                    "example": "business"
                   }
-                }
+                },
+                "required": []
               }
             }
           }
