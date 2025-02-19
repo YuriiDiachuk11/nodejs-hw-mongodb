@@ -13,6 +13,7 @@ parameters:
       type: string
     example: '67ca67e7ae7f10c25b566655'
 requestBody:
+  required: true
   content:
     application/json:
       schema:
@@ -27,6 +28,10 @@ requestBody:
           email:
             type: string
             example: ivanpele@gmail.com
+          contactType:
+            type: string
+            example: business
+        required: []
 
 responses:
   '200':
