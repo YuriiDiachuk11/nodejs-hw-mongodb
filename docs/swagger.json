@@ -204,12 +204,12 @@
                 ],
                 "properties": {
                   "name": {
-                    "description": "Contact's name",
+                    "description": "Contact name",
                     "type": "string",
                     "example": "Ivan Pele"
                   },
                   "phoneNumber": {
-                    "description": "Contact's phone",
+                    "description": "Contact phone",
                     "type": "string",
                     "example": "+380975554532"
                   },
@@ -385,7 +385,11 @@
                   },
                   "contactType": {
                     "type": "string",
-                    "example": "business"
+                    "example": "home"
+                  },
+                  "isFavourite": {
+                    "type": "boolean",
+                    "example": false
                   }
                 },
                 "required": []

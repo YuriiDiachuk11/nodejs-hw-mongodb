@@ -18,11 +18,11 @@ requestBody:
           - contactType
         properties:
           name:
-            description: Contact's name
+            description: Contact name
             type: string
             example: 'Ivan Pele'
           phoneNumber:
-            description: Contact's phone
+            description: Contact phone
             type: string
             example: '+380975554532'
           email:
